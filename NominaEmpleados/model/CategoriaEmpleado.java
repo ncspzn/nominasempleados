@@ -1,5 +1,6 @@
 package NominaEmpleados.model;
 
-public class CategoriaEmpleado {
+enum CategoriaEmpleado {
+    JUNIOR,SEMI_SENIOR,SENIOR
 
 }
