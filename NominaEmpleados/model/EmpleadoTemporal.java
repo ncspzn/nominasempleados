@@ -1,25 +1,32 @@
 package NominaEmpleados.model;
 
-public class EmpleadoTemporal extends Empleado{
+public class EmpleadoTemporal extends Empleado {
+
     private int diasTrabajados;
     private float valorDia;
-    public EmpleadoTemporal(String nombre, String documento, int edad, float salarioBase, CategoriaEmpleado categoria,
-            float descuentoSalud, float descuentopension, int diasTrabajados, float valorDia) {
-        super(nombre, documento, edad, salarioBase, categoria, descuentoSalud, descuentopension);
+
+    public EmpleadoTemporal(String nombre, String documento, int edad, float salarioBase,
+                            CategoriaEmpleado categoria, float descuentoSalud, float descuentoPension,
+                            int diasTrabajados, float valorDia) {
+
+        super(nombre, documento, edad, salarioBase, categoria, descuentoSalud, descuentoPension);
+
+        if (diasTrabajados < 0) throw new IllegalArgumentException("Días inválidos");
+        if (valorDia < 0) throw new IllegalArgumentException("Valor inválido");
+
         this.diasTrabajados = diasTrabajados;
         this.valorDia = valorDia;
     }
-    public int getDiasTrabajados() {
-        return diasTrabajados;
+
+    @Override
+    public float calcularSalarioBruto() {
+        return (diasTrabajados * valorDia) + calcularBonificacionCategoria();
     }
-    public void setDiasTrabajados(int diasTrabajados) {
-        this.diasTrabajados = diasTrabajados;
+
+    @Override
+    public String mostrarInformacion() {
+        return super.mostrarInformacion() +
+               "\nTipo: Temporal" +
+               "\nSalario Neto: " + calcularSalarioNeto();
     }
-    public float getValorDia() {
-        return valorDia;
-    }
-    public void setValorDia(float valorDia) {
-        this.valorDia = valorDia;
-    }
-    
 }
